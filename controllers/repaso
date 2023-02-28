@@ -1,0 +1,163 @@
+ //verificacion de autenticacion
+
+  if (Object.keys(ctx).length === 0) {
+    throw new Error("Antes debe iniciar sesión");
+  }
+  console.log(ctx);
+  // verificamos si va actualizar su primera empresa
+  const usu = await Usuario.findById(ctx.usuario.id);
+  console.log(usu.empresas);
+  const emp = await Empresa.findOne({ correo: usu.correo });
+  
+  console.log(usu.empresas);
+  const numEmpresa = await Empresa.countDocuments()
+  // if (numEmpresa === 1){
+
+  if (emp.inicioFormal === false) {
+    
+    const usr_admin = await Usuario.findById(ctx.usuario.id);
+
+    //Verificar que cuente con los permisos necesarios
+    if (!usr_admin.rol || usr_admin.rol != "admin_usuario") {
+      throw new Error(
+        "Usted no cuenta con los permisos necesarios para realizar esta operación"
+      );
+    }
+    input.inicioFormal = true
+    cambiosEmpresa = { ...input };
+    const actualizaEmpresa = await Empresa.findOneAndUpdate(
+      usu.correo,
+      cambiosEmpresa,
+      { new: true }
+    );
+    return actualizaEmpresa;
+  }
+
+  // creacion empresa de segunda en adelante
+
+  //aplicamos destrocturing
+  const { correo, password } = input;
+
+  // verificar si no esta registrado la empresa
+
+  if (emp) {
+    throw new Error("El correo ya esta registrado");
+  }
+  //hashear su password
+  const salt = await bcryptjs.genSaltSync(10);
+  input.password = await bcryptjs.hashSync(password, salt);
+
+  //guardarlo en la base de datos
+
+  try {
+    //guardarlo en la base de datossss
+    const empresa = new Empresa(input);
+    empresa.save(); //guardando
+    return empresa;
+  } catch (error) {
+    console.log(error);
+  }
+
+
+  /////////////////////////////////////////////////////
+
+
+
+
+
+
+
+  input.inicioFormal = true
+  cambiosEmpresa = { ...input };
+  const actualizaEmpresa = await Empresa.findOneAndUpdate(
+    usu.correo,
+    cambiosEmpresa,
+    { new: true }
+  );
+    console.log("se actualizo tu primera empresa")
+  return actualizaEmpresa;
+
+
+  ////////////////////////////////////////////////
+
+  //  uso del lookup
+
+
+
+   // buscar empresas de un usuario
+ const resultado = await Usuario.aggregate(
+  [
+  {
+    $lookup:
+    {
+    from: "empresas",// hecha un ojo en empresas
+    localField: "idString",// en el campo empresa de usuario
+    foreignField: "_idUsuario",//coincida con el campo nombre de usuario ynombre en empresa
+    as: "empresasUsuario"//y metelos en este alias empresas de usuario
+  }
+  },
+ { $unwind: "$empresasUsuario" }
+  ]
+  );
+  
+ const objeto = resultado.reduce((acc, item) => {
+    acc[item.id] = item
+    return acc
+  }, {})
+
+ const emp = objeto.undefined.empresasUsuario
+ //console.log("resultado por objeto.....................")
+ //console.log(objeto)
+
+
+ 
+
+ //////////////////////////////////////////////////
+
+ 
+
+//guardar empresa o actualizar empresa
+
+if ( usuario.correo === emp.correo && emp.inicioFormal === false ){
+
+  input.inicioFormal = true
+  cambiosEmpresa = { ...input };
+  const actualizaEmpresa = await Empresa.findOneAndUpdate(
+   usuario.correo,
+    cambiosEmpresa,
+    { new: true }
+  );
+    console.log("se actualizo tu primera empresa")
+  return actualizaEmpresa;
+ 
+ 
+ }else{
+  
+ 
+ // verificar si no esta registrado la empresa
+ const existeEmpresa = await Empresa.findOne({correo});
+ if (existeEmpresa) {
+     throw new Error('El correo ya esta registrado');
+ }
+ //hashear su password
+ const salt = await bcryptjs.genSaltSync(10)
+ input.password = await bcryptjs.hashSync(password, salt)
+ input.rol = "admin_usuario";
+ //guardarlo en la base de datos
+ try {
+ //guardarlo en la base de datos
+     // guardar id de usuario a la empresa
+     input.inicioFormal = true
+     input._idUsuario = usuario.idString
+     
+     const empresa = new Empresa(input)
+     empresa.save()//guardando
+     
+     return empresa;
+ } catch (error) {
+     console.log(error)
+ }
+ 
+ 
+ 
+ } 

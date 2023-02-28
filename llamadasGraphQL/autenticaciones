@@ -1,0 +1,17 @@
+mutation Autenticaciones($input: AutenticarAcceso) {
+  autenticaciones(input: $input) {
+    token
+  }
+}
+
+
+
+
+
+
+{
+  "input": {
+    "correo": "jose@jose.cl",
+    "password": "123"
+  }
+}

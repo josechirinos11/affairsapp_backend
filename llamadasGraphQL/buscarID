@@ -1,0 +1,19 @@
+mutation BuscarUsuarioId($input: buscandoID) {
+  buscarUsuarioId(input: $input) {
+  id
+  correo  
+  }
+}
+
+
+
+
+
+
+{
+  "input": {
+    "id": "6343932803911ba693fca96a"
+  }
+  
+ 
+}

@@ -1,0 +1,17 @@
+mutation Mutation($input: EmpresaInput) {
+  nuevaEmpresa(input: $input) {
+    correo
+  }
+}
+
+
+
+
+
+
+{
+  "input": {
+    "correo": "ventas@proinex.cl",
+    "password": "123"
+  }
+}

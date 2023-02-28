@@ -1,0 +1,19 @@
+mutation NuevoUsuario($input: UsuarioInput) {
+  nuevoUsuario(input: $input) {
+    id
+    correo
+  }
+}
+
+
+
+
+
+
+
+  "input": {
+    "correo": "jose@jose.com",
+    "password": "123"
+  }
+
+}

@@ -1,0 +1,29 @@
+mutation ActualizacionEmpresa($input: ActualizacionEmpresaInput) {
+  actualizacionEmpresa(input: $input) {
+    nombre
+    dni
+    direccion
+    rol
+    telefono
+    contacto
+    correoContacto
+    dniContacto
+    telefonoContacto
+    correo
+  }
+}
+
+{
+  "input": {
+    "nombre": "proinex",
+    "dni": "769607889",
+    "direccion": "huerfanos 1055",
+    "rol": "presidente",
+    "telefono": "56959953567",
+    "contacto": "jose chirinos",
+    "correoContacto": "josechirinos11@gmail.com",
+    "dniContacto": "266175361",
+    "telefonoContacto": "56959953567",
+    "correo": "ventas@proinex.cl"
+  }
+}
