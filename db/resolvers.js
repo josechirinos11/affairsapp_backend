@@ -1,5 +1,5 @@
 
-const { nuevaEmpresa, actualizacionEmpresa } = require('../controllers/empresas');
+const { nuevaEmpresa, actualizacionEmpresa, buscarEmpresasUsuario, buscarEmpresaID } = require('../controllers/empresas');
 const {  autenticarUsuario } = require('../controllers/auth');
 const { obtenerUsuario, nuevoUsuario, actualizarUsuario, buscarUsuariCorreo } = require('../controllers/usuarios');
 const { nuevoProducto, actualizarProducto } = require('../controllers/productos');
@@ -9,7 +9,9 @@ const jwt = require('jsonwebtoken')
 //Resolvers
 const resolvers = {
     Query: {
-        obtenerUsuario
+        obtenerUsuario,
+        buscarEmpresasUsuario,
+        buscarEmpresaID
     },
     Mutation: {
         nuevaEmpresa, actualizacionEmpresa,
