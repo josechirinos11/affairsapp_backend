@@ -10,8 +10,8 @@ const conectarDB = async () => {
         mongoose.set("strictQuery", false);
         await mongoose.connect(str_conn, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
-           // useFindAndModify: false,
+            useUnifiedTopology: true,
+           //useFindAndModify: false,
            // useCreateIndex: true
         })
 

@@ -22,7 +22,7 @@ const nuevoUsuario =  async (_, { input }, validacion) => {
     // verificar si no esta registrado la empresa
     const existeUsuario = await Usuario.findOne({correo});
     if (existeUsuario) {
-        throw new Error('El correo ya esta registrado');
+        throw new Error('Ha ocurrido un error al procesar los datos.');
     }
     //hashear su password
     const salt = await bcryptjs.genSaltSync(10)
@@ -34,14 +34,13 @@ const nuevoUsuario =  async (_, { input }, validacion) => {
         
         const usuario = new Usuario(input);
         usuario.save();//guardando
-        //console.log(usuario._id)
+       
         input._idUsuario = usuario._id
         const empresa = new Empresa(input)
         empresa.save()//guardando
-        //console.log(empresa._idUsuario)
-        usuario.idString = empresa._idUsuario
-        const actualizacionUsuario = await Usuario.findOneAndUpdate(correo, usuario, {new: true});
-        return usuario;
+
+        
+          return usuario;
     } catch (error) {
         console.log(error)
     }
