@@ -8,7 +8,7 @@ require("dotenv").config({ path: "variables.env" });
 
 const buscarEmpresasUsuario = async (_, { id }, ctx) => {
 
-const empresas = await Empresa.find({ _idUsuario : ctx.usuario.id });
+const empresas = await Empresa.find({ _idUsuario : id });
 if (!empresas) {
   throw new Error("empresas no encontradas");
 }
