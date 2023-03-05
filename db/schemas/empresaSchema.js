@@ -2,6 +2,7 @@ const typeEmpresa = `
     type Empresa {
         id: ID
         correo: String
+        _idUsuario : String
 
   
     }
@@ -60,12 +61,16 @@ const inputEmpresa = `
 `;
 
 //Aquí se agregan todas las queries de la entidad
-const queriesEmpresa = ``;
+const queriesEmpresa = `
+buscarEmpresasUsuario(id: String) : [Empresa]
+buscarEmpresaID(id: String) : Empresa
+`;
     
 //Aquí se agregan todas las mutaciones de la entidad
 const mutationsEmpresa = `
     nuevaEmpresa(input: EmpresaInput) : Empresa
     actualizacionEmpresa(input: ActualizacionEmpresaInput) : Empresa
+    
 `;
 
 module.exports = { 
