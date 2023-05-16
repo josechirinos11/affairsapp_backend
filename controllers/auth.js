@@ -52,7 +52,24 @@ const validarToken = async (_, { input }, ctx) => {
   throw new Error("falso");
 };
 
+const renovarToken = async (_, { input }, ctx) => {
+  const { correo } = ctx.usuario;
+  const { HH } = input;
+
+  //Verificar si el usuario existe
+  const existeUsuario = await Usuario.findOne({ correo });
+  if (!existeUsuario) {
+    throw new Error("El correo No esta registrado");
+  }
+
+  //crear token
+  return {
+    token: crearToken(existeUsuario, process.env.SECRETA, `${HH}h`),
+  };
+};
+
 module.exports = {
   autenticarUsuario,
   validarToken,
+  renovarToken,
 };

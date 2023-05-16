@@ -4,7 +4,11 @@ const typeToken = `
         id_usuario_login: String
     }
 `;
-
+const inputHoraToken = `
+    input Hora {
+        HH: String! 
+    }
+`;
 const inputAutenticarAcceso = `
      input AutenticarAccesoUsuario {
         correo: String!
@@ -25,12 +29,14 @@ const queriesToken = ``;
 const mutationsToken = `
        autenticarUsuario( input:  AutenticarAccesoUsuario ) : Token
        validarToken(input: ValidarToken) : Token
+       renovarToken(input:  Hora) : Token
 `;
 
 module.exports = {
   typeToken,
   inputAutenticarAcceso,
   inputValidarToken,
+  inputHoraToken,
   queriesToken,
   mutationsToken,
 };

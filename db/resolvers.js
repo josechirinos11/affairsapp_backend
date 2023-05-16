@@ -4,7 +4,11 @@ const {
   buscarEmpresasUsuario,
   buscarEmpresaID,
 } = require("../controllers/empresas");
-const { autenticarUsuario, validarToken } = require("../controllers/auth");
+const {
+  autenticarUsuario,
+  validarToken,
+  renovarToken,
+} = require("../controllers/auth");
 const {
   obtenerUsuario,
   nuevoUsuario,
@@ -32,6 +36,7 @@ const resolvers = {
     actualizarUsuario,
     autenticarUsuario,
     validarToken,
+    renovarToken,
     nuevoProducto,
     actualizarProducto,
     buscarUsuariCorreo,

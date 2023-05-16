@@ -1,0 +1,15 @@
+mutation RenovarToken($input: Hora) {
+  renovarToken(input: $input) {
+    token
+  }
+}
+
+
+
+
+{
+  "input": {
+
+    "HH": "12"
+  }
+}
