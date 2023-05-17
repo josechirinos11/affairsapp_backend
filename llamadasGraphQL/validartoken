@@ -1,7 +1,5 @@
-mutation ValidarToken($input: Validacion) {
-  validarToken(input: $input) {
-    token
-  }
+mutation Mutation($input: ValidarToken) {
+  validarToken(input: $input)
 }
 
 

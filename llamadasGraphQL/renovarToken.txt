@@ -8,8 +8,5 @@ mutation RenovarToken($input: Hora) {
 
 
 {
-  "input": {
-
-    "HH": "12"
-  }
+ sin input
 }
