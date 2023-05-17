@@ -1,5 +1,6 @@
-mutation Mutation($input: EmpresaInput) {
+mutation NuevaEmpresa($input: EmpresaInput) {
   nuevaEmpresa(input: $input) {
+    id
     correo
   }
 }
@@ -11,7 +12,12 @@ mutation Mutation($input: EmpresaInput) {
 
 {
   "input": {
-    "correo": "ventas@proinex.cl",
-    "password": "123"
+    "dni": "null",
+    "razon_social": "null",
+    "id_Usuario": "null",
+    "telefono": "null",
+    "correo": "null",
+    "direccion": "null",
+    "logo": "null"
   }
 }

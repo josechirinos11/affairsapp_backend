@@ -1,0 +1,12 @@
+mutation RenovarToken($input: Hora) {
+  renovarToken(input: $input) {
+    token
+  }
+}
+
+
+
+
+{
+ sin input
+}

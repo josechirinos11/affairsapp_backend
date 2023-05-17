@@ -1,0 +1,14 @@
+mutation Mutation($input: ValidarToken) {
+  validarToken(input: $input)
+}
+
+
+
+
+
+
+{
+  "input": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NWVmYWE4YzAwZDI0ZTMyM2Y1MjExMyIsImNvcnJlbyI6Impvc2VtYXJpYUBqb3NlLmNvbSIsImlhdCI6MTY4Mzk0NzUxNywiZXhwIjoxNjg0MDMzOTE3fQ.Mom_Cgk9nHfkfsTqNnJ3kBot1z9uxImOB2KTAvjASlg"
+  }
+}
