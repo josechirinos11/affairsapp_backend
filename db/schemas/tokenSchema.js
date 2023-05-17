@@ -28,8 +28,8 @@ const queriesToken = ``;
 //Aquí se agregan todas las mutaciones de la entidad
 const mutationsToken = `
        autenticarUsuario( input:  AutenticarAccesoUsuario ) : Token
-       validarToken(input: ValidarToken) : Token
-       renovarToken(input:  Hora) : Token
+       validarToken(input: ValidarToken) : Boolean
+       renovarToken : Token
 `;
 
 module.exports = {

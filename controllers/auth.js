@@ -40,21 +40,20 @@ const autenticarUsuario = async (_, { input }) => {
 const validarToken = async (_, { input }, ctx) => {
   const { token } = input;
 
-  //verificacion de autenticacion
-  if (Object.keys(ctx).length === 0) {
-    throw new Error("Antes debe iniciar sesión");
-  }
-  //verificacion de si el imput es igual al token
-  if (token === ctx.usuario.token) {
-    throw new Error("verdadero");
-  }
+  try {
+    // Verificar el token utilizando la clave secreta
+    const decoded = jwt.verify(token, process.env.SECRETA);
 
-  throw new Error("falso");
+    // Si el token es válido, la verificación no lanzará ninguna excepción
+    return true;
+  } catch (error) {
+    // Si ocurre un error al verificar el token, se considera inválido
+    return false;
+  }
 };
 
 const renovarToken = async (_, { input }, ctx) => {
   const { correo } = ctx.usuario;
-  const { HH } = input;
 
   //Verificar si el usuario existe
   const existeUsuario = await Usuario.findOne({ correo });
@@ -64,7 +63,7 @@ const renovarToken = async (_, { input }, ctx) => {
 
   //crear token
   return {
-    token: crearToken(existeUsuario, process.env.SECRETA, `${HH}h`),
+    token: crearToken(existeUsuario, process.env.SECRETA, "12h"),
   };
 };
 
