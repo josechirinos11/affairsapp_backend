@@ -4,6 +4,7 @@
   "description": "backend",
   "main": "index.js",
   "scripts": {
+    "build": "rm -rf public && mkdir public && echo 'Custom Build' > ./public/index.html",
     "start": "node .",
     "dev": "nodemon ."
   },
