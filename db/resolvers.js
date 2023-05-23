@@ -8,6 +8,7 @@ const {
   autenticarUsuario,
   validarToken,
   renovarToken,
+  recuperarPassword,
 } = require("../controllers/auth");
 const {
   obtenerUsuario,
@@ -37,6 +38,7 @@ const resolvers = {
     autenticarUsuario,
     validarToken,
     renovarToken,
+    recuperarPassword,
     nuevoProducto,
     actualizarProducto,
     buscarUsuariCorreo,

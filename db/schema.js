@@ -9,9 +9,11 @@ const {
 } = require("./schemas/empresaSchema");
 const {
   typeToken,
+  typeCodigo,
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
+  inputRecuperarPassword,
   queriesToken,
   mutationsToken,
 } = require("./schemas/tokenSchema");
@@ -34,6 +36,7 @@ ${typeEmpresa}
 ${typeUsuario}
 ${typeProducto}
 ${typeToken}
+${typeCodigo}
 
 ${inputEmpresa}
 ${inputActualizacionEmpresa}
@@ -42,6 +45,7 @@ ${inputProducto}
 ${inputAutenticarAcceso}
 ${inputValidarToken}
 ${inputHoraToken}
+${inputRecuperarPassword}
   
 type Query {
     ${queriesEmpresa}

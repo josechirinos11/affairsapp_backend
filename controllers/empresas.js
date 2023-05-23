@@ -26,18 +26,61 @@ const buscarEmpresaID = async (_, { id }, ctx) => {
 };
 
 const nuevaEmpresa = async (_, { input }, ctx) => {
-  //verificacion de autenticacion
-  if (Object.keys(ctx).length === 0) {
-    throw new Error("Antes debe iniciar sesión");
+  console.log(ctx);
+  try {
+    // Verificación de autenticación
+    if (!ctx.usuario) {
+      throw new Error("Debe iniciar sesión antes de crear una nueva empresa.");
+    }
+
+    const usr_admin = await Usuario.findById(ctx.usuario.id);
+    if (!usr_admin) {
+      throw new Error("La identidad de usuario no existe.");
+    }
+
+    // Buscar la empresa relacionada con el usuario
+    const empresas = await Empresa.find({
+      id_Usuario: ctx.usuario.id,
+    });
+
+    // verificando cuantas empresas tienes
+    if (empresas.length === 1) {
+      console.log("Tiene una empresa");
+    } else if (empresas.length > 1) {
+      console.log("Tiene más de una empresa");
+    } else {
+      console.log("No tiene empresas");
+    }
+
+    try {
+      //guardarlo en la base de datossss
+      input.inicioFormal = false;
+      input.id_Usuario = usr_admin.id;
+      const newEmpresa = new Empresa(input);
+      newEmpresa.save(); //guardando
+      return newEmpresa;
+    } catch (error) {
+      console.log(error);
+    }
+
+    return empresas;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Ha ocurrido un error al crear una nueva empresa.");
   }
 
-  const usr_admin = await Usuario.findById(ctx.usuario.id);
-  if (!usr_admin) {
-    throw new Error("identidad de usuario no existe");
+  /*
+
+  if (Object.keys(empresas).length === 1) {
+    return console.log("Tiene una empresa");
+  } else if (Object.keys(empresas).length > 1) {
+    return console.log("Tiene más de una empresa");
+  } else {
+    return console.log("No tiene empresas");
   }
 
   //aplicamos destrocturing
-
+ 
   try {
     //guardarlo en la base de datossss
     input.inicioFormal = false;
@@ -50,6 +93,7 @@ const nuevaEmpresa = async (_, { input }, ctx) => {
   }
 
   return "obj";
+*/
 
   //const numEmp = Object.keys(emp).length
   //console.log(numEmp)

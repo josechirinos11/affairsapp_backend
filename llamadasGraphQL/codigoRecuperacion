@@ -1,0 +1,17 @@
+mutation RecuperarPassword($input: RecuperarPassword) {
+  recuperarPassword(input: $input) {
+    codigoRecuperacion
+  }
+}
+
+
+
+
+
+
+
+{
+  "input": {
+    "correo": "josechirinos11@gmail.com"
+  }
+}
