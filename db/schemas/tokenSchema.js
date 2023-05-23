@@ -21,6 +21,12 @@ const inputValidarToken = `
         
     }
 `;
+const inputRecuperarPassword = `
+     input RecuperarPassword {
+        correo: String!
+        
+    }
+`;
 
 //Aquí se agregan todas las queries de la entidad
 const queriesToken = ``;
@@ -30,6 +36,7 @@ const mutationsToken = `
        autenticarUsuario( input:  AutenticarAccesoUsuario ) : Token
        validarToken(input: ValidarToken) : Boolean
        renovarToken : Token
+       recuperarPassword( input: RecuperarPassword) : Token
 `;
 
 module.exports = {
@@ -37,6 +44,7 @@ module.exports = {
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
+  inputRecuperarPassword,
   queriesToken,
   mutationsToken,
 };

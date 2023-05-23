@@ -52,6 +52,13 @@ const validarToken = async (_, { input }, ctx) => {
   }
 };
 
+const recuperarPassword = async (_, { input }, ctx) => {
+  console.log(ctx);
+  const { correo, token } = ctx.usuario;
+
+  //crear token
+  return token;
+};
 const renovarToken = async (_, { input }, ctx) => {
   const { correo } = ctx.usuario;
 
@@ -71,4 +78,5 @@ module.exports = {
   autenticarUsuario,
   validarToken,
   renovarToken,
+  recuperarPassword,
 };

@@ -12,6 +12,7 @@ const {
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
+  inputRecuperarPassword,
   queriesToken,
   mutationsToken,
 } = require("./schemas/tokenSchema");
@@ -42,6 +43,7 @@ ${inputProducto}
 ${inputAutenticarAcceso}
 ${inputValidarToken}
 ${inputHoraToken}
+${inputRecuperarPassword}
   
 type Query {
     ${queriesEmpresa}
