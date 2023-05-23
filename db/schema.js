@@ -9,6 +9,7 @@ const {
 } = require("./schemas/empresaSchema");
 const {
   typeToken,
+  typeCodigo,
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
@@ -35,6 +36,7 @@ ${typeEmpresa}
 ${typeUsuario}
 ${typeProducto}
 ${typeToken}
+${typeCodigo}
 
 ${inputEmpresa}
 ${inputActualizacionEmpresa}

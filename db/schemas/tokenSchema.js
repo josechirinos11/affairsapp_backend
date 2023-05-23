@@ -4,6 +4,12 @@ const typeToken = `
         id_usuario_login: String
     }
 `;
+const typeCodigo = `
+    type Codigo {
+        codigoRecuperacion: String
+       
+    }
+`;
 const inputHoraToken = `
     input Hora {
         HH: String! 
@@ -36,11 +42,12 @@ const mutationsToken = `
        autenticarUsuario( input:  AutenticarAccesoUsuario ) : Token
        validarToken(input: ValidarToken) : Boolean
        renovarToken : Token
-       recuperarPassword( input: RecuperarPassword) : Token
+       recuperarPassword( input: RecuperarPassword) : Codigo
 `;
 
 module.exports = {
   typeToken,
+  typeCodigo,
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
