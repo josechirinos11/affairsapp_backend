@@ -4,6 +4,12 @@ const typeToken = `
         id_usuario_login: String
     }
 `;
+const typeCodigo = `
+    type Codigo {
+        codigoRecuperacion: String
+       
+    }
+`;
 const inputHoraToken = `
     input Hora {
         HH: String! 
@@ -21,6 +27,12 @@ const inputValidarToken = `
         
     }
 `;
+const inputRecuperarPassword = `
+     input RecuperarPassword {
+        correo: String!
+        
+    }
+`;
 
 //Aquí se agregan todas las queries de la entidad
 const queriesToken = ``;
@@ -30,13 +42,16 @@ const mutationsToken = `
        autenticarUsuario( input:  AutenticarAccesoUsuario ) : Token
        validarToken(input: ValidarToken) : Boolean
        renovarToken : Token
+       recuperarPassword( input: RecuperarPassword) : Codigo
 `;
 
 module.exports = {
   typeToken,
+  typeCodigo,
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
+  inputRecuperarPassword,
   queriesToken,
   mutationsToken,
 };
