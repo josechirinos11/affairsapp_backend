@@ -14,6 +14,7 @@ const {
   obtenerUsuario,
   nuevoUsuario,
   actualizarUsuario,
+  buscarUsuarioId,
   buscarUsuariCorreo,
 } = require("../controllers/usuarios");
 const {
@@ -41,6 +42,7 @@ const resolvers = {
     recuperarPassword,
     nuevoProducto,
     actualizarProducto,
+    buscarUsuarioId,
     buscarUsuariCorreo,
   },
 };

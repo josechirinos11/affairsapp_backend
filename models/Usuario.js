@@ -29,6 +29,11 @@ const UsuariosSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  password_Repeat: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   rol: {
     type: String,
     trim: true,
@@ -47,6 +52,11 @@ const UsuariosSchema = new mongoose.Schema({
   },
 
   telefono: {
+    type: String,
+
+    trim: true,
+  },
+  condicion: {
     type: String,
 
     trim: true,

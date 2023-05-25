@@ -20,6 +20,8 @@ const {
 const {
   typeUsuario,
   inputUsuario,
+  inputBuscandoID,
+  ActualizarUsuario,
   queriesUsuario,
   mutationsUsuario,
 } = require("./schemas/usuarioSchema");
@@ -41,6 +43,8 @@ ${typeCodigo}
 ${inputEmpresa}
 ${inputActualizacionEmpresa}
 ${inputUsuario}
+${inputBuscandoID}
+${ActualizarUsuario}
 ${inputProducto}
 ${inputAutenticarAcceso}
 ${inputValidarToken}

@@ -13,25 +13,28 @@ input UsuarioInput {
     correo: String!
     password: String!
 }
-
-input buscandoID {
+`;
+const inputBuscandoID = ` 
+input buscandoIDInput {
     correo: String!
     
 }
-
-
+`;
+const ActualizarUsuario = ` 
 input ActualizarUsuarioInput {
-    id: String!
-    empresa: String
+    id: String
     nombre: String
     apellido: String
     dni: String
+    correo: String
     direccion: String
-    telefono: String
-    rol: String
     password: String
     password_Repeat: String
+    rol: String   
+    telefono: String
     condicion: String
+    empresa: String
+    id_Usuario: String
 }
 `;
 //Aquí se agregan todas las queries de la entidad
@@ -44,15 +47,16 @@ const queriesUsuario = `
 const mutationsUsuario = `
     nuevoUsuario(input: UsuarioInput): Usuario,
     actualizarUsuario(input: ActualizarUsuarioInput): Usuario,
-    buscarUsuarioId(input: buscandoID): Usuario
-    buscarUsuariCorreo(input: buscandoID): Usuario
+    buscarUsuarioId(input: buscandoIDInput): Usuario
+    buscarUsuariCorreo(input: buscandoIDInput): Usuario
     
 `;
 
-
-module.exports = { 
-    typeUsuario,
-    inputUsuario,
-    queriesUsuario,
-    mutationsUsuario
-}
+module.exports = {
+  typeUsuario,
+  inputUsuario,
+  inputBuscandoID,
+  ActualizarUsuario,
+  queriesUsuario,
+  mutationsUsuario,
+};

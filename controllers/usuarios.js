@@ -101,50 +101,22 @@ const actualizarUsuario = async (_, { input }, validacion) => {
     }
     throw new Error("Las Claves tienen que ser iguales");
   }
-
-  /**
-   * IMPORTANTE:
-   * Un usuario con rol de admin, puede editar los datos propios y además los datos de cualquier otro usuario
-   * Un usuario con rol distinto de admin, solo puede editar sus propios datos
-   */
-
-  const usuario_login = validacion.usuario.id; //Este es el usuario logueado
-  const id_usuario = input.id; //Este es el id del usuario a editar
-  const existeUsuario = await Usuario.findById(id_usuario);
-  const usr = await Usuario.findById(usuario_login);
-
-  if (!existeUsuario) {
-    throw new Error("Usuario no existe en la Base de datos");
-  }
-
-  if (!usr.rol) {
-    throw new Error("Usuario no posee rol. Comuníquese con el administrador.");
-  }
-
-  // Se evalúa usuario admin o el mismo usuario.
-  if (usr.rol !== "admin_usuario" && usuario_login !== id_usuario) {
-    throw new Error(
-      "Usted no cuenta con los permisos necesarios para realizar esta operación"
-    );
-  }
-
-  if (!input.empresa || input.empresa == "") {
-    input.empresa = existeUsuario.empresa;
-  }
-
-  const cambiosUsuario = {
-    ...input,
-  };
-
-  const actualizacionUsuario = await Usuario.findByIdAndUpdate(
-    id_usuario,
-    cambiosUsuario,
-    { new: true }
-  );
-  return actualizacionUsuario;
 };
 
 const buscarUsuariCorreo = async (_, { input }, validacion) => {
+  console.log(input);
+  const { correo } = input;
+  console.log(correo);
+  const existeUsuario = await Usuario.findOne({ correo: correo });
+  if (!existeUsuario) {
+    console.log("no existe");
+    throw new Error("Usuario no esta");
+  }
+
+  return existeUsuario;
+};
+
+const buscarUsuarioId = async (_, { input }, validacion) => {
   console.log(input);
   const { correo } = input;
   console.log(correo);
@@ -162,4 +134,5 @@ module.exports = {
   obtenerUsuario,
   actualizarUsuario,
   buscarUsuariCorreo,
+  buscarUsuarioId,
 };

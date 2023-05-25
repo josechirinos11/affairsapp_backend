@@ -1,0 +1,30 @@
+mutation ActualizarUsuario($input: ActualizarUsuarioInput) {
+  actualizarUsuario(input: $input) {
+    id
+    correo
+  }
+}
+
+
+
+
+
+
+
+{
+  "input": {
+    "nombre": "null",
+    "apellido": "null",
+    "dni": "null",
+    "correo": "null",
+    "direccion": "null",
+    "password": "null",
+    "rol": "null",
+    "telefono": "null",
+    "condicion": "null",
+    "empresa": "null",
+    "id_Usuario": "null",
+    "password_Repeat": "null",
+    "id": "null"
+  }
+}
