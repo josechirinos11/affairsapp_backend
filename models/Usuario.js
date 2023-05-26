@@ -69,6 +69,10 @@ const UsuariosSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
+  codigoPassword: {
+    type: String,
+    trim: true,
+  },
 });
 
 module.exports = model("Usuario", UsuariosSchema);
