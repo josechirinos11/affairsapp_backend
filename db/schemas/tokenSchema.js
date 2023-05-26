@@ -7,6 +7,8 @@ const typeToken = `
 const typeCodigo = `
     type Codigo {
         codigoRecuperacion: String
+        idUsuario: String
+        fechaExpiracion: String
        
     }
 `;
@@ -43,6 +45,7 @@ const mutationsToken = `
        validarToken(input: ValidarToken) : Boolean
        renovarToken : Token
        recuperarPassword( input: RecuperarPassword) : Codigo
+       validarCorreo( input: RecuperarPassword) : Codigo
 `;
 
 module.exports = {

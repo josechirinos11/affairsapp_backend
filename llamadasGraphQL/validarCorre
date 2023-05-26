@@ -1,10 +1,11 @@
-mutation RecuperarPassword($input: RecuperarPassword) {
-  recuperarPassword(input: $input) {
+mutation ValidarCorreo($input: RecuperarPassword) {
+  validarCorreo(input: $input) {
     codigoRecuperacion
-    idUsuario
     fechaExpiracion
   }
 }
+
+
 
 
 

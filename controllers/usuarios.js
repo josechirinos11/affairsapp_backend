@@ -17,7 +17,7 @@ const nuevoUsuario = async (_, { input }, validacion) => {
   //aplicamos destrocturing
   const { correo, password } = input;
 
-  // verificar si no esta registrado la empresa
+  // verificar si no esta registrado el usuario
   const existeUsuario = await Usuario.findOne({ correo });
   if (existeUsuario) {
     throw new Error("Ha ocurrido un error al procesar los datos.");
