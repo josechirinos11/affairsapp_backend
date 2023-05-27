@@ -26,6 +26,7 @@ const nuevoUsuario = async (_, { input }, validacion) => {
   const salt = await bcryptjs.genSaltSync(10);
   input.password = await bcryptjs.hashSync(password, salt);
   input.rol = "admin_usuario";
+  input.password_Repeat = input.password;
   //guardarlo en la base de datos
   try {
     //guardarlo en la base de datos
