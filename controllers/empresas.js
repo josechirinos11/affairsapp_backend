@@ -43,6 +43,7 @@ const nuevaEmpresa = async (_, { input }, ctx) => {
       id_Usuario: ctx.usuario.id,
     });
 
+    /*
     // verificando cuantas empresas tienes
     if (empresas.length === 1) {
       console.log("Tiene una empresa");
@@ -51,6 +52,7 @@ const nuevaEmpresa = async (_, { input }, ctx) => {
     } else {
       console.log("No tiene empresas");
     }
+    */
 
     try {
       //guardarlo en la base de datossss
