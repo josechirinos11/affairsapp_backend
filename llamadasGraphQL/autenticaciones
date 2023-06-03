@@ -1,5 +1,5 @@
-mutation Autenticaciones($input: AutenticarAcceso) {
-  autenticaciones(input: $input) {
+mutation AutenticarUsuario($input: AutenticarAccesoUsuario) {
+  autenticarUsuario(input: $input) {
     token
   }
 }
@@ -8,10 +8,10 @@ mutation Autenticaciones($input: AutenticarAcceso) {
 
 
 
-
 {
   "input": {
-    "correo": "jose@jose.cl",
-    "password": "123"
+    "correo": "jose@jose.com",
+    "password": "12345678"
   }
+
 }
