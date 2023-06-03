@@ -15,11 +15,13 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => {
     //  se usa para pasar usuario por todo el resolver por la variable ctx
+    // console.log(req.headers["authorization"]);
     const token = req.headers["authorization"] || 0;
 
     if (token) {
       try {
         const usuario = jwt.verify(token, process.env.SECRETA);
+        console.log(usuario);
         usuario.token = token;
 
         //console.log(usuario)
