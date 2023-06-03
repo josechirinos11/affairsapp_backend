@@ -12,6 +12,14 @@ const typeCodigo = `
        
     }
 `;
+const typeInfoToken = `
+    type InfoToken {
+        correo: String
+        id: String
+        status: Boolean
+       
+    }
+`;
 const inputHoraToken = `
     input Hora {
         HH: String! 
@@ -42,7 +50,7 @@ const queriesToken = ``;
 //Aquí se agregan todas las mutaciones de la entidad
 const mutationsToken = `
        autenticarUsuario( input:  AutenticarAccesoUsuario ) : Token
-       validarToken(input: ValidarToken) : Boolean
+       validarToken(input: ValidarToken) : InfoToken
        renovarToken : Token
        recuperarPassword( input: RecuperarPassword) : Codigo
        validarCorreo( input: RecuperarPassword) : Codigo
@@ -51,6 +59,7 @@ const mutationsToken = `
 module.exports = {
   typeToken,
   typeCodigo,
+  typeInfoToken,
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,

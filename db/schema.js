@@ -10,6 +10,7 @@ const {
 const {
   typeToken,
   typeCodigo,
+  typeInfoToken,
   inputAutenticarAcceso,
   inputValidarToken,
   inputHoraToken,
@@ -39,6 +40,7 @@ ${typeUsuario}
 ${typeProducto}
 ${typeToken}
 ${typeCodigo}
+${typeInfoToken}
 
 ${inputEmpresa}
 ${inputActualizacionEmpresa}
