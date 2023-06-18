@@ -8,6 +8,7 @@ const typeEmpresa = `
         correo: String
         direccion: String
         logo: String
+        inicioFormal: Boolean
 
         rol: String
         fecha_creacion: String
@@ -33,6 +34,7 @@ const typeEmpresaActualizada = `
         correo: String
         direccion: String
         logo: String
+        inicioFormal: Boolean
 
         rol: String
         fecha_creacion: String
@@ -82,6 +84,7 @@ const inputEmpresa = `
         correo: String
         direccion: String
         logo: String
+        inicioFormal: Boolean
 
         rol: String
         fecha_creacion: String
@@ -100,14 +103,15 @@ const inputEmpresa = `
 
 //Aquí se agregan todas las queries de la entidad
 const queriesEmpresa = `
-buscarEmpresasUsuario(id: String) : [Empresa]
-buscarEmpresaID(id: String) : Empresa
+buscarEmpresasUsuario(id: String, token: String) : [Empresa]
+buscarEmpresaID(id: String, token: String) : Empresa
+obtenerListadoEmpresas(token: String): [Empresa]
 `;
 
 //Aquí se agregan todas las mutaciones de la entidad
 const mutationsEmpresa = `
-    nuevaEmpresa(input: EmpresaInput) : Empresa
-    actualizacionEmpresa(input: ActualizacionEmpresaInput) : Empresa
+    nuevaEmpresa(input: EmpresaInput, token: String!) : Empresa
+    actualizacionEmpresa(input: ActualizacionEmpresaInput, token: String) : Empresa
     
 `;
 

@@ -1,11 +1,14 @@
-mutation NuevaEmpresa($input: EmpresaInput) {
-  nuevaEmpresa(input: $input) {
-    id
+mutation NuevaEmpresa(
+  $input: EmpresaInput,
+  $token: String!
+) {
+  nuevaEmpresa(input: $input, token: $token) {
     correo
+    id
+    direccion
+    dni
   }
 }
-
-
 
 
 
@@ -18,6 +21,7 @@ mutation NuevaEmpresa($input: EmpresaInput) {
     "telefono": "null",
     "correo": "null",
     "direccion": "null",
-    "logo": "null"
+    "logo": "null",
+    "inicioFormal": "null"
   }
 }

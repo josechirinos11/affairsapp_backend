@@ -1,138 +1,119 @@
 const Empresa = require("../models/Empresa");
 const Usuario = require("../models/Usuario");
-const bcryptjs = require("bcryptjs");
 require("dotenv").config({ path: "variables.env" });
+const validarToken = require('../helpers/ValidarToken.helper');
 
-const buscarEmpresasUsuario = async (_, { id }, ctx) => {
-  const empresas = await Empresa.find({ _idUsuario: id });
+const buscarEmpresasUsuario = async (_, { id, token }) => {
+  const empresas = await Empresa.find({ id_Usuario: id });
+  console.log(empresas);
   if (!empresas) {
     throw new Error("empresas no encontradas");
   }
-  return empresas;
+  const tk = await validarToken.ValidarToken({ token });
+  let listadoEmpresas = [];
+  empresas.forEach( (e) => {
+    if (tk.id === e.id_Usuario) {
+      listadoEmpresas.push(e);
+    } else {
+      throw new Error("Empresa no pertenece a este usuario");
+    }
+  });
+
+  return listadoEmpresas;
 };
 
-const buscarEmpresaID = async (_, { id }, ctx) => {
+const buscarEmpresaID = async (_, { id, token }) => {
   const empresa = await Empresa.findById(id);
   if (!empresa) {
     throw new Error("empresas no encontradas");
   }
+  
+  const tk = await validarToken.ValidarToken({ token });
 
-  if (ctx.usuario.id === empresa._idUsuario) {
-    console.log("son iguales");
+  if (tk.id === empresa.id_Usuario) {
     return empresa;
   } else {
-    throw new Error("No tienes credenciales");
+    throw new Error("Empresa no pertenece a este usuario");
   }
 };
 
-const nuevaEmpresa = async (_, { input }, ctx) => {
-  console.log(ctx);
+const obtenerEmpresas = async (_, { token }) => {
+  const empresas = await Empresa.find();
+  const tk = await validarToken.validarToken({token});
+  if (tk.id === empresas.id_Usuario) {
+    return empresas;
+  }
+  return null;
+};
+
+const nuevaEmpresa = async (_, { input, token }) => {
   try {
     // Verificación de autenticación
-    if (!ctx.usuario) {
-      throw new Error("Debe iniciar sesión antes de crear una nueva empresa.");
-    }
-
-    const usr_admin = await Usuario.findById(ctx.usuario.id);
-    if (!usr_admin) {
-      throw new Error("La identidad de usuario no existe.");
-    }
-
-    // Buscar la empresa relacionada con el usuario
-    const empresas = await Empresa.find({
-      id_Usuario: ctx.usuario.id,
-    });
-
-    /*
-    // verificando cuantas empresas tienes
-    if (empresas.length === 1) {
-      console.log("Tiene una empresa");
-    } else if (empresas.length > 1) {
-      console.log("Tiene más de una empresa");
-    } else {
-      console.log("No tiene empresas");
-    }
-    */
-
-    try {
-      //guardarlo en la base de datossss
-      input.inicioFormal = false;
-      input.id_Usuario = usr_admin.id;
-      const newEmpresa = new Empresa(input);
-      newEmpresa.save(); //guardando
-      return newEmpresa;
+    await validarToken.ValidarToken({token}).then( (tk) => {
+      if(!tk.status) {
+        throw new Error("La identidad de usuario no existe.");
+      }
+      // Buscar la empresa relacionada con el usuario
+      const empresas = Empresa.find({
+        id_Usuario: tk.id,
+      });
+      try {
+        //guardarlo en la base de datos
+        input.inicioFormal = input.inicioFormal | false;
+        input.id_Usuario = tk.id;
+        const newEmpresa = new Empresa(input);
+        newEmpresa.save(); //guardando
+        return newEmpresa;
+      } catch (error) {
+        console.log(error);
+      }
+  
+      return empresas;
+      } );
     } catch (error) {
       console.log(error);
+      throw new Error("Ha ocurrido un error al crear una nueva empresa.");
     }
-
-    return empresas;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Ha ocurrido un error al crear una nueva empresa.");
-  }
-
-  /*
-
-  if (Object.keys(empresas).length === 1) {
-    return console.log("Tiene una empresa");
-  } else if (Object.keys(empresas).length > 1) {
-    return console.log("Tiene más de una empresa");
-  } else {
-    return console.log("No tiene empresas");
-  }
-
-  //aplicamos destrocturing
- 
-  try {
-    //guardarlo en la base de datossss
-    input.inicioFormal = false;
-    input.id_Usuario = usr_admin.id;
-    const newEmpresa = new Empresa(input);
-    newEmpresa.save(); //guardando
-    return newEmpresa;
-  } catch (error) {
-    console.log(error);
-  }
-
-  return "obj";
-*/
-
-  //const numEmp = Object.keys(emp).length
-  //console.log(numEmp)
 };
 
-const actualizacionEmpresa = async (_, { input }, ctx) => {
-  console.log(ctx.usuario.id);
+const actualizacionEmpresa = async (_, { input, token }) => {
+  try {
+    let myToken = '';
+    await validarToken.ValidarToken({token}).then( (tk) => {
+      if(!tk.status) {
+        throw new Error("La identidad de usuario no existe.");
+      }
+      console.log(tk);
+      myToken = tk;
+    });
+    const usr_admin = await Usuario.findById(myToken.id);
+    const id_empresa = input.id;
+    const existeEmpresa = await Empresa.findById(id_empresa);
 
-  if (Object.keys(ctx).length === 0) {
-    throw new Error("Antes debe iniciar sesión");
-  }
-  const id_empresa = input.id;
-  const usr_admin = await Usuario.findById(ctx.usuario.id);
+    //Lo primero es encontrar la empresa por su ID
+    // verificar si no esta registrado la empresa
+    if (!existeEmpresa) {
+      throw new Error("La empresa no existe");
+    }
 
-  const existeEmpresa = await Empresa.findById(id_empresa);
-  //Lo primero es encontrar la empresa por su ID
-  // verificar si no esta registrado la empresa
-  if (!existeEmpresa) {
-    throw new Error("La empresa no existe");
-  }
-
-  //Verificar que cuente con los permisos necesarios
-  if (!usr_admin.rol || usr_admin.rol != "admin_usuario") {
-    throw new Error(
-      "Usted no cuenta con los permisos necesarios para realizar esta operación"
+    //Verificar que cuente con los permisos necesarios
+    if (!usr_admin.rol || usr_admin.rol != "admin_usuario") {
+      throw new Error(
+        "Usted no cuenta con los permisos necesarios para realizar esta operación"
+      );
+    }
+    cambiosEmpresa = { ...input };
+    const actualizaEmpresa = Empresa.findByIdAndUpdate(
+      id_empresa,
+      cambiosEmpresa,
+      { new: true }
     );
+    return actualizaEmpresa;
+
+  } catch (error) {
+    console.log(error)
   }
 
-  // buscamos la empresa
-
-  cambiosEmpresa = { ...input };
-  const actualizaEmpresa = await Empresa.findByIdAndUpdate(
-    id_empresa,
-    cambiosEmpresa,
-    { new: true }
-  );
-  return actualizaEmpresa;
 };
 
 module.exports = {
@@ -140,4 +121,5 @@ module.exports = {
   actualizacionEmpresa,
   buscarEmpresasUsuario,
   buscarEmpresaID,
+  obtenerEmpresas,
 };

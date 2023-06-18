@@ -1,5 +1,8 @@
-mutation ActualizacionEmpresa($input: ActualizacionEmpresaInput) {
-  actualizacionEmpresa(input: $input) {
+mutation ActualizacionEmpresa(
+  $input: ActualizacionEmpresaInput,
+  $token: String!
+) {
+  actualizacionEmpresa(input: $input, token: $token) {
     nombre
     dni
     direccion
